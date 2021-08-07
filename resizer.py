@@ -9,12 +9,12 @@ RESOLUTIONS = [
     (800, 704),
 ]
 
-def resize2png(file, new_image_size):
-    for size in new_image_size:
+def resize2png(file, resolutions):
+    for size in resolutions:
         image = Image.open(file)
         original_wight, original_height = image.size
         wight, height = size
-        index_resolution = new_image_size.index(size) + 1
+        index_resolution = resolutions.index(size) + 1
         out_path = "./files/output/png/"
         os.makedirs(out_path, exist_ok=True)
         out_file_name = out_path + file.split("\\")[-1][:-4] + f'({index_resolution}).png'
@@ -28,13 +28,12 @@ def resize2png(file, new_image_size):
         print(f'[INFO] Файл {out_file_name} успешно сохранен')
         image.close()
 
-def resize2jpg(file, new_image_size):
-
-    for size in new_image_size:
+def resize2jpg(file, resolutions):
+    for size in resolutions:
         image = Image.open(file)
         original_wight, original_height = image.size
         wight, height = size
-        index_resolution = new_image_size.index(size) + 1
+        index_resolution = resolutions.index(size) + 1
         out_path = "./files/output/jpg/"
         os.makedirs(out_path, exist_ok=True)
         out_file_name = out_path + file.split("\\")[-1][:-4] + f'({index_resolution}).jpg'
@@ -48,14 +47,11 @@ def resize2jpg(file, new_image_size):
         print(f'[INFO] Файл {out_file_name} успешно сохранен')
         image.close()
 
-def resizer(resolutions):
+def main():
     for file in glob('./files/input/*.tif'):
         print("\n[INFO] Обработка " + file.split('\\')[-1])
-        resize2jpg(file=file, new_image_size=RESOLUTIONS)
-        resize2png(file=file, new_image_size=RESOLUTIONS)
-
-
-
+        resize2jpg(file=file, resolutions=RESOLUTIONS)
+        resize2png(file=file, resolutions=RESOLUTIONS)
 
 if __name__ == "__main__":
-    resizer(resolutions=RESOLUTIONS)
+    main()

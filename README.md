@@ -1,2 +1,4 @@
-# render2jpg-png
- Convert tiff render to png, jpg with the ability to change the image resolution.
+# Render2jpg-png
+ Конвертация tiff рендеров в png и jpg с возможностью изменения разрешения.
+
+
