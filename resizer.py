@@ -1,6 +1,8 @@
 from glob import glob
 import os
 import click
+from datetime import  datetime
+import  time
 
 
 from PIL import Image
@@ -69,6 +71,7 @@ def main(path, out_format):
     input_folder = f"{path}\*.tif"
     count_files = len(glob(input_folder))
     count_completed_files = 0
+    start_time = datetime.now()
     print("\n")
     for file in glob(input_folder):
         file_name = file.split('\\')[-1]
@@ -85,6 +88,7 @@ def main(path, out_format):
     renaming_processed_files_final_dir(path)
 
     print(f'\n Всего обработано {count_completed_files} из {count_files} файлов.')
+    print(f'Время работы скрипта: {datetime.now() - start_time}')
 
 if __name__ == "__main__":
     main()
