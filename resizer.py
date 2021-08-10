@@ -49,8 +49,20 @@ def resize2jpg(file, resolutions, input_folder):
         # print(f'[INFO] Файл {out_file_name} успешно сохранен')
         image.close()
 
+def renaming_processed_files_final_dir(path):
+    """Функция заменяет именя файлов с fileName(откр1)(1) -> fileName(откр1)"""
+
+    files_path = f"{path}output\\**\*.*"
+    replase_str = "(откр1)("
+    for file in glob(files_path):
+        if replase_str in file:
+            # print(f'{file} - найдено совпадение')
+            new_file_name = file.replace(replase_str, "(откр")
+            # print(f'новое имя файла{new_file_name}\n')
+            os.rename(file, new_file_name)
+
 @click.command()
-@click.option("--path", prompt="Input directory", help="Put your input directory.")
+@click.option("--path", prompt="Input directory", help="Put your input directory.", default="d:\\tmp\\test\\")
 @click.option("--out_format", prompt="Input out_format (1 - JPEG; 2 - PNG)", default="all", help="Select out_format(1 - 'JPEG', 2 - 'PNG'). Default all - JPEG+PNG")
 
 def main(path, out_format):
@@ -69,6 +81,8 @@ def main(path, out_format):
         elif (out_format == "2"):
             resize2png(file=file, resolutions=RESOLUTIONS, input_folder=path)
         count_completed_files += 1
+
+    renaming_processed_files_final_dir(path)
 
     print(f'\n Всего обработано {count_completed_files} из {count_files} файлов.')
 
